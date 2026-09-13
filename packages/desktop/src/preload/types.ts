@@ -7,7 +7,7 @@ export type {
   WslInstalledDistro,
   WslJob,
   WslOnlineDistro,
-  WslOpencodeCheck,
+  WslDarkie CoderCheck,
   WslRuntimeCheck,
   WslServerConfig,
   WslServerItem,

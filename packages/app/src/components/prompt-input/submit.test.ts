@@ -126,7 +126,7 @@ beforeAll(async () => {
   }))
 
   mock.module("@opencode-ai/sdk/v2/client", () => ({
-    createOpencodeClient: (input: { directory: string }) => {
+    createDarkie CoderClient: (input: { directory: string }) => {
       createdClients.push(input.directory)
       return clientFor(input.directory)
     },

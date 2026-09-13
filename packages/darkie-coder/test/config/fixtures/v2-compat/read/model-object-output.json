@@ -1,0 +1,4 @@
+{
+  "$schema": "https://darkie-coder.ai/config.json",
+  "model": "anthropic/claude-sonnet"
+}

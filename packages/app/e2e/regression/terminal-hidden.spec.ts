@@ -1,15 +1,15 @@
 import { expect, test } from "@playwright/test"
-import { mockOpenCodeServer } from "../utils/mock-server"
+import { mockDarkie CoderServer } from "../utils/mock-server"
 import { expectSessionTitle } from "../utils/waits"
 
-const directory = "C:/OpenCode/HiddenTerminalRegression"
+const directory = "C:/Darkie Coder/HiddenTerminalRegression"
 const projectID = "proj_hidden_terminal_regression"
 const sessionID = "ses_hidden_terminal_regression"
 const title = "Hidden terminal regression"
 
 test("unmounts the terminal panel while it is hidden", async ({ page }) => {
   await page.setViewportSize({ width: 1400, height: 900 })
-  await mockOpenCodeServer(page, {
+  await mockDarkie CoderServer(page, {
     protocol: "v2",
     directory,
     project: {
@@ -23,13 +23,13 @@ test("unmounts the terminal panel while it is hidden", async ({ page }) => {
     provider: {
       all: [
         {
-          id: "opencode",
-          name: "OpenCode",
+          id: "darkie-coder",
+          name: "Darkie Coder",
           models: { test: { id: "test", name: "Test", limit: { context: 200_000 } } },
         },
       ],
-      connected: ["opencode"],
-      default: { providerID: "opencode", modelID: "test" },
+      connected: ["darkie-coder"],
+      default: { providerID: "darkie-coder", modelID: "test" },
     },
     sessions: [
       {

@@ -121,10 +121,10 @@ export async function handler(
       })
       if (response) return response
     }
-    const sessionId = input.request.headers.get("x-opencode-session") ?? ""
-    const requestId = input.request.headers.get("x-opencode-request") ?? ""
-    const ocClient = input.request.headers.get("x-opencode-client") ?? ""
-    const projectId = input.request.headers.get("x-opencode-project") ?? ""
+    const sessionId = input.request.headers.get("x-darkie-coder-session") ?? ""
+    const requestId = input.request.headers.get("x-darkie-coder-request") ?? ""
+    const ocClient = input.request.headers.get("x-darkie-coder-client") ?? ""
+    const projectId = input.request.headers.get("x-darkie-coder-project") ?? ""
     const userAgent = input.request.headers.get("user-agent") ?? ""
     logger.metric({
       session: sessionId,
@@ -146,7 +146,7 @@ export async function handler(
     if (authInfo && opts.modelList === "lite" && requiresGoTrainingConsent(modelInfo.id) && !authInfo.allowTraining)
       throw new DataPolicyError(
         t("zen.api.error.trainingNotAllowed", {
-          consoleGoUrl: `https://opencode.ai/workspace/${authInfo.workspaceID}/go`,
+          consoleGoUrl: `https://darkie-coder.ai/workspace/${authInfo.workspaceID}/go`,
         }),
       )
     const allowedRegions = authInfo?.region
@@ -165,7 +165,7 @@ export async function handler(
     )
       throw new RegionError(
         t("zen.api.error.regionNotAllowed", {
-          consoleGoUrl: `https://opencode.ai/workspace/${authInfo.workspaceID}/go`,
+          consoleGoUrl: `https://darkie-coder.ai/workspace/${authInfo.workspaceID}/go`,
         }),
       )
     const stickyId = sessionId ? sessionId : (authInfo?.workspaceID ?? ip)
@@ -256,10 +256,10 @@ export async function handler(
           headers.delete("host")
           headers.delete("content-length")
           if (!isNewInference) {
-            headers.delete("x-opencode-session")
-            headers.delete("x-opencode-project")
-            headers.delete("x-opencode-client")
-            headers.delete("x-opencode-request")
+            headers.delete("x-darkie-coder-session")
+            headers.delete("x-darkie-coder-project")
+            headers.delete("x-darkie-coder-client")
+            headers.delete("x-darkie-coder-request")
             headers.delete("x-zen-model")
           }
           return headers
@@ -274,8 +274,8 @@ export async function handler(
       logger.metric({ is_stream: isStream })
 
       if (isNewInference) {
-        const resEndpointId = res.headers.get("x-opencode-endpoint-id")
-        const resEndpointModelId = res.headers.get("x-opencode-upstream-model-id")
+        const resEndpointId = res.headers.get("x-darkie-coder-endpoint-id")
+        const resEndpointModelId = res.headers.get("x-darkie-coder-upstream-model-id")
         if (resEndpointId && resEndpointModelId)
           logger.metric({
             provider: resEndpointId,
@@ -559,7 +559,7 @@ export async function handler(
       throw new ModelError(
         `${t("zen.api.error.trialEnded", {
           model: modelData.name,
-          link: "https://opencode.ai/go",
+          link: "https://darkie-coder.ai/go",
         })}`,
       )
 
@@ -891,7 +891,7 @@ export async function handler(
       if (Object.values(modelInfo.cost).every((price) => price === 0)) return "lite"
 
       try {
-        const consoleGoUrl = `https://opencode.ai/workspace/${authInfo.workspaceID}/go`
+        const consoleGoUrl = `https://darkie-coder.ai/workspace/${authInfo.workspaceID}/go`
         const sub = authInfo.lite
         const liteData = LiteData.getLimits()
 
@@ -962,8 +962,8 @@ export async function handler(
 
     // Validate pay as you go billing
     const billing = authInfo.billing
-    const billingUrl = `https://opencode.ai/workspace/${authInfo.workspaceID}/billing`
-    const membersUrl = `https://opencode.ai/workspace/${authInfo.workspaceID}/members`
+    const billingUrl = `https://darkie-coder.ai/workspace/${authInfo.workspaceID}/billing`
+    const membersUrl = `https://darkie-coder.ai/workspace/${authInfo.workspaceID}/members`
     if (!billing.paymentMethodID && billing.balance <= 0)
       throw new CreditsError(t("zen.api.error.noPaymentMethod", { billingUrl }))
     if (billing.balance <= 0) throw new CreditsError(t("zen.api.error.insufficientBalance", { billingUrl }))

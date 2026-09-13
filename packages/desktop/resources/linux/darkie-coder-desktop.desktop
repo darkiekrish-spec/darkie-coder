@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Darkie Coder
+Exec=/opt/Darkie Coder/ai.darkie-coder.desktop %U
+Terminal=false
+Type=Application
+Icon=ai.darkie-coder.desktop
+StartupWMClass=ai.darkie-coder.desktop
+NoDisplay=true
+Comment=Open source AI coding agent
+Categories=Development;

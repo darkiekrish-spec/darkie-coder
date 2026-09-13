@@ -13,8 +13,8 @@ await Effect.runPromise(
         emitPromise(contract, {
           outputTypes: {
             "events.subscribe": {
-              name: "OpenCodeEventEncoded",
-              import: 'import type { OpenCodeEventEncoded } from "@opencode-ai/protocol/groups/event"',
+              name: "Darkie CoderEventEncoded",
+              import: 'import type { Darkie CoderEventEncoded } from "@opencode-ai/protocol/groups/event"',
             },
           },
         }),

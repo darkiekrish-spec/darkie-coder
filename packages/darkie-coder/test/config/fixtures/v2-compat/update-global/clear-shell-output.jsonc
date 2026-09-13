@@ -1,0 +1,5 @@
+{
+  "$schema": "https://darkie-coder.ai/config.json",
+  "model": { "providerID": "example", "model": "demo" },
+  "snapshots": false,
+}

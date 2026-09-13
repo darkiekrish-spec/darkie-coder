@@ -13,7 +13,7 @@
     "typecheck": "tsgo --noEmit"
   },
   "bin": {
-    "opencode": "./bin/opencode"
+    "darkie-coder": "./bin/darkie-coder"
   },
   "exports": {
     "./effect/layer-node": "./src/effect/layer-node.ts",

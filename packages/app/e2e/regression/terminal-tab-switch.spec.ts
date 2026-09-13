@@ -1,9 +1,9 @@
 import { base64Encode } from "@opencode-ai/core/util/encode"
 import { expect, test, type Page } from "@playwright/test"
-import { mockOpenCodeServer } from "../utils/mock-server"
+import { mockDarkie CoderServer } from "../utils/mock-server"
 import { expectSessionTitle } from "../utils/waits"
 
-const directory = "C:/OpenCode/TerminalTabSwitch"
+const directory = "C:/Darkie Coder/TerminalTabSwitch"
 const projectID = "proj_terminal_tab_switch"
 const sessionA = "ses_terminal_tab_a"
 const sessionB = "ses_terminal_tab_b"
@@ -65,7 +65,7 @@ async function readProbe(page: Page) {
 }
 
 async function setup(page: Page) {
-  await mockOpenCodeServer(page, {
+  await mockDarkie CoderServer(page, {
     protocol: "v2",
     directory,
     project: {
@@ -79,13 +79,13 @@ async function setup(page: Page) {
     provider: {
       all: [
         {
-          id: "opencode",
-          name: "OpenCode",
+          id: "darkie-coder",
+          name: "Darkie Coder",
           models: { test: { id: "test", name: "Test", limit: { context: 200_000 } } },
         },
       ],
-      connected: ["opencode"],
-      default: { providerID: "opencode", modelID: "test" },
+      connected: ["darkie-coder"],
+      default: { providerID: "darkie-coder", modelID: "test" },
     },
     sessions: [session(sessionA, titleA, 1700000000000), session(sessionB, titleB, 1700000001000)],
     pageMessages: () => ({ items: [] }),
@@ -105,7 +105,7 @@ async function setup(page: Page) {
     }),
   )
   await page.route(`**/api/pty/${ptyID}/connect-token*`, (route) => {
-    expect(route.request().headers()["x-opencode-ticket"]).toBe("1")
+    expect(route.request().headers()["x-darkie-coder-ticket"]).toBe("1")
     const url = new URL(route.request().url())
     expect(url.searchParams.get("location[directory]")).toBe(directory)
     return route.fulfill({
@@ -124,14 +124,14 @@ async function setup(page: Page) {
     ({ directory, server, sessions }) => {
       localStorage.setItem("settings.v3", JSON.stringify({ general: { newLayoutDesigns: true } }))
       localStorage.setItem(
-        "opencode.global.dat:server",
+        "darkie-coder.global.dat:server",
         JSON.stringify({
           projects: { local: [{ worktree: directory, expanded: true }] },
           lastProject: { local: directory },
         }),
       )
       localStorage.setItem(
-        "opencode.window.browser.dat:tabs",
+        "darkie-coder.window.browser.dat:tabs",
         JSON.stringify(sessions.map((sessionId: string) => ({ type: "session", server, sessionId }))),
       )
     },

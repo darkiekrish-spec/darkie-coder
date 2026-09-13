@@ -1,16 +1,16 @@
 export * from "./client.js"
 export * from "./server.js"
 
-import { createOpencodeClient } from "./client.js"
-import { createOpencodeServer } from "./server.js"
+import { createDarkie CoderClient } from "./client.js"
+import { createDarkie CoderServer } from "./server.js"
 import type { ServerOptions } from "./server.js"
 
-export async function createOpencode(options?: ServerOptions) {
-  const server = await createOpencodeServer({
+export async function createDarkie Coder(options?: ServerOptions) {
+  const server = await createDarkie CoderServer({
     ...options,
   })
 
-  const client = createOpencodeClient({
+  const client = createDarkie CoderClient({
     baseUrl: server.url,
   })
 

@@ -1,6 +1,6 @@
-# OpenCode Desktop
+# Darkie Coder Desktop
 
-The OpenCode Desktop app, built with Electron.
+The Darkie Coder Desktop app, built with Electron.
 
 ## Development
 

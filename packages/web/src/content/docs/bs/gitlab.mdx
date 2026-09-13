@@ -1,66 +1,66 @@
 ---
 title: GitLab
-description: Koristite OpenCode u GitLab problemima i zahtjevima za spajanje.
+description: Koristite Darkie Coder u GitLab problemima i zahtjevima za spajanje.
 ---
 
-OpenCode se integriše sa vašim GitLab radnim tokom kroz vaš GitLab CI/CD cevovod ili sa GitLab Duo.
-U oba slučaja, OpenCode će se pokrenuti na vašim GitLab pokretačima.
+Darkie Coder se integriše sa vašim GitLab radnim tokom kroz vaš GitLab CI/CD cevovod ili sa GitLab Duo.
+U oba slučaja, Darkie Coder će se pokrenuti na vašim GitLab pokretačima.
 
 ---
 
 ## GitLab CI
 
-OpenCode radi u redovnom GitLab cevovodu. Možete ga ugraditi u cjevovod kao [CI komponenta](https://docs.gitlab.com/ee/ci/components/)
-Ovdje koristimo CI/CD komponentu kreiranu u zajednici za OpenCode — [nagyv/gitlab-opencode](https://gitlab.com/nagyv/gitlab-opencode).
+Darkie Coder radi u redovnom GitLab cevovodu. Možete ga ugraditi u cjevovod kao [CI komponenta](https://docs.gitlab.com/ee/ci/components/)
+Ovdje koristimo CI/CD komponentu kreiranu u zajednici za Darkie Coder — [nagyv/gitlab-darkie-coder](https://gitlab.com/nagyv/gitlab-darkie-coder).
 
 ---
 
 ### Funkcije
 
-- **Koristite prilagođenu konfiguraciju po poslu**: Konfigurirajte OpenCode s prilagođenim konfiguracijskim direktorijem, na primjer `./config/#custom-directory` da omogućite ili onemogućite funkcionalnost po OpenCode pozivanju.
-- **Minimalno podešavanje**: CI komponenta postavlja OpenCode u pozadini, samo trebate kreirati OpenCode konfiguraciju i početnu prompt.
+- **Koristite prilagođenu konfiguraciju po poslu**: Konfigurirajte Darkie Coder s prilagođenim konfiguracijskim direktorijem, na primjer `./config/#custom-directory` da omogućite ili onemogućite funkcionalnost po Darkie Coder pozivanju.
+- **Minimalno podešavanje**: CI komponenta postavlja Darkie Coder u pozadini, samo trebate kreirati Darkie Coder konfiguraciju i početnu prompt.
 - **Fleksibilno**: CI komponenta podržava nekoliko ulaza za prilagođavanje njenog ponašanja
 
 ---
 
 ### Podešavanje
 
-1. Sačuvajte JSON za autentifikaciju OpenCode kao CI varijable okruženja tipa datoteke pod **Postavke** > **CI/CD** > **Varijable**. Obavezno ih označite kao "Maskirane i skrivene".
+1. Sačuvajte JSON za autentifikaciju Darkie Coder kao CI varijable okruženja tipa datoteke pod **Postavke** > **CI/CD** > **Varijable**. Obavezno ih označite kao "Maskirane i skrivene".
 2. Dodajte sljedeće u svoju `.gitlab-ci.yml` datoteku.
 
 ```yaml title=".gitlab-ci.yml"
 include:
-  - component: $CI_SERVER_FQDN/nagyv/gitlab-opencode/opencode@2
+  - component: $CI_SERVER_FQDN/nagyv/gitlab-darkie-coder/darkie-coder@2
     inputs:
-      config_dir: ${CI_PROJECT_DIR}/opencode-config
-      auth_json: $OPENCODE_AUTH_JSON # The variable name for your OpenCode authentication JSON
+      config_dir: ${CI_PROJECT_DIR}/darkie-coder-config
+      auth_json: $DARKIE_CODER_AUTH_JSON # The variable name for your Darkie Coder authentication JSON
       command: optional-custom-command
       message: "Your prompt here"
 ```
 
-Za više unosa i slučajeva upotrebe [pogledajte dokumente docs](https://gitlab.com/explore/catalog/nagyv/gitlab-opencode) za ovu komponentu.
+Za više unosa i slučajeva upotrebe [pogledajte dokumente docs](https://gitlab.com/explore/catalog/nagyv/gitlab-darkie-coder) za ovu komponentu.
 
 ---
 
 ## GitLab Duo
 
-OpenCode se integriše sa vašim GitLab tokovom rada.
-Spomenite `@opencode` u komentaru i OpenCode će izvršiti zadatke unutar vašeg GitLab CI cevovoda.
+Darkie Coder se integriše sa vašim GitLab tokovom rada.
+Spomenite `@darkie-coder` u komentaru i Darkie Coder će izvršiti zadatke unutar vašeg GitLab CI cevovoda.
 
 ---
 
 ### Funkcije
 
-- **Problemi trijaže**: Zamolite OpenCode da ispita problem i objasni vam ga.
-- **Popravi i implementiraj**: Zamolite OpenCode da popravi problem ili implementira funkciju.
+- **Problemi trijaže**: Zamolite Darkie Coder da ispita problem i objasni vam ga.
+- **Popravi i implementiraj**: Zamolite Darkie Coder da popravi problem ili implementira funkciju.
   To će kreirati novu granu i pokrenuti zahtjev za spajanje s promjenama.
-- **Secure**: OpenCode radi na vašim GitLab pokretačima.
+- **Secure**: Darkie Coder radi na vašim GitLab pokretačima.
 
 ---
 
 ### Podešavanje
 
-OpenCode radi u vašem GitLab CI/CD cevovodu, evo šta će vam trebati da ga postavite:
+Darkie Coder radi u vašem GitLab CI/CD cevovodu, evo šta će vam trebati da ga postavite:
 :::tip
 Pogledajte [**GitLab dokumente**](https://docs.gitlab.com/user/duo_agent_platform/agent_assistant/) za ažurirane upute.
 :::
@@ -79,19 +79,19 @@ Pogledajte [**GitLab dokumente**](https://docs.gitlab.com/user/duo_agent_platfor
     ```yaml
     image: node:22-slim
     commands:
-      - echo "Installing opencode"
-      - npm install --global opencode-ai
+      - echo "Installing darkie-coder"
+      - npm install --global darkie-coder-ai
       - echo "Installing glab"
-      - export GITLAB_TOKEN=$GITLAB_TOKEN_OPENCODE
+      - export GITLAB_TOKEN=$GITLAB_TOKEN_DARKIE_CODER
       - apt-get update --quiet && apt-get install --yes curl wget gpg git && rm --recursive --force /var/lib/apt/lists/*
       - curl --silent --show-error --location "https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository" | bash
       - apt-get install --yes glab
       - echo "Configuring glab"
       - echo $GITLAB_HOST
-      - echo "Creating OpenCode auth configuration"
-      - mkdir --parents ~/.local/share/opencode
+      - echo "Creating Darkie Coder auth configuration"
+      - mkdir --parents ~/.local/share/darkie-coder
       - |
-        cat > ~/.local/share/opencode/auth.json << EOF
+        cat > ~/.local/share/darkie-coder/auth.json << EOF
         {
           "anthropic": {
             "type": "api",
@@ -100,13 +100,13 @@ Pogledajte [**GitLab dokumente**](https://docs.gitlab.com/user/duo_agent_platfor
         }
         EOF
       - echo "Configuring git"
-      - git config --global user.email "opencode@gitlab.com"
-      - git config --global user.name "OpenCode"
+      - git config --global user.email "darkie-coder@gitlab.com"
+      - git config --global user.name "Darkie Coder"
       - echo "Testing glab"
       - glab issue list
-      - echo "Running OpenCode"
+      - echo "Running Darkie Coder"
       - |
-        opencode run "
+        darkie-coder run "
         You are an AI assistant helping with GitLab operations.
 
         Context: $AI_FLOW_CONTEXT
@@ -143,7 +143,7 @@ Pogledajte [**GitLab dokumente**](https://docs.gitlab.com/user/duo_agent_platfor
         fi
     variables:
       - ANTHROPIC_API_KEY
-      - GITLAB_TOKEN_OPENCODE
+      - GITLAB_TOKEN_DARKIE_CODER
       - GITLAB_HOST
     ```
 
@@ -155,34 +155,34 @@ Možete vidjeti [GitLab CLI agenti docs](https://docs.gitlab.com/user/duo_agent_
 
 ### Primjeri
 
-Evo nekoliko primjera kako možete koristiti OpenCode u GitLab.
+Evo nekoliko primjera kako možete koristiti Darkie Coder u GitLab.
 :::tip
-Možete konfigurirati da koristite drugu frazu okidača od `@opencode`.
+Možete konfigurirati da koristite drugu frazu okidača od `@darkie-coder`.
 :::
 
 - **Objasnite problem**
   Dodajte ovaj komentar u izdanje GitLaba.
 
 ```
-  @opencode explain this issue
+  @darkie-coder explain this issue
 ```
 
-OpenCode će pročitati problem i odgovoriti jasnim objašnjenjem.
+Darkie Coder će pročitati problem i odgovoriti jasnim objašnjenjem.
 
 - **Reši problem**
   U izdanju GitLaba recite:
 
 ```
-  @opencode fix this
+  @darkie-coder fix this
 ```
 
-OpenCode će kreirati novu granu, implementirati promjene i otvoriti zahtjev za spajanje s promjenama.
+Darkie Coder će kreirati novu granu, implementirati promjene i otvoriti zahtjev za spajanje s promjenama.
 
 - **Pregledajte zahtjeve za pridruživanje**
   Ostavite sljedeći komentar na zahtjev za spajanje GitLab-a.
 
 ```
-  @opencode review this merge request
+  @darkie-coder review this merge request
 ```
 
-OpenCode će pregledati zahtjev za spajanje i dati povratne informacije.
+Darkie Coder će pregledati zahtjev za spajanje i dati povratne informacije.
